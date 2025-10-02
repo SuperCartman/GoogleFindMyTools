@@ -38,6 +38,8 @@ def is_mcu_tracker(device_registration: DeviceRegistration) -> bool:
 
 
 def retrieve_identity_key(device_registration: DeviceRegistration) -> bytes:
+    # print ("is_mcu_tracker")
+    # input()
     is_mcu = is_mcu_tracker(device_registration)
     encrypted_user_secrets = device_registration.encryptedUserSecrets
 
@@ -45,6 +47,8 @@ def retrieve_identity_key(device_registration: DeviceRegistration) -> bytes:
         encrypted_user_secrets.encryptedIdentityKey,
         is_mcu)
     owner_key = get_owner_key()
+    owner_key = bytes.fromhex("cd3a5f7e977fd5849a880af2a3b69516bda92e5cb2a119ed925074045f100b1e")
+    # print (str(owner_key))
 
     try:
         identity_key = decrypt_eik(owner_key, encrypted_identity_key)
@@ -108,6 +112,7 @@ def decrypt_location_response_locations(device_update_protobuf):
             public_key_random = loc.geoLocation.encryptedReport.publicKeyRandom
 
             if public_key_random == b"":  # Own Report
+                print ("Own Report")
                 identity_key_hash = hashlib.sha256(identity_key).digest()
                 decrypted_location = decrypt_aes_gcm(identity_key_hash, encrypted_location)
             else:

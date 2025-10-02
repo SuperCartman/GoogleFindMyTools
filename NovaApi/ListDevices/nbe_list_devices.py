@@ -41,35 +41,42 @@ def create_device_list_request():
 
 
 def list_devices():
-    print("Loading...")
-    result_hex = request_device_list()
 
-    device_list = parse_device_list_protobuf(result_hex)
 
-    refresh_custom_trackers(device_list)
-    canonic_ids = get_canonic_ids(device_list)
+    get_location_data_for_device("67b06e06-0000-2aad-bdf1-14223bb647b2", "Test")
 
-    print("")
-    print("-" * 50)
-    print("Welcome to GoogleFindMyTools!")
-    print("-" * 50)
-    print("")
-    print("The following trackers are available:")
 
-    for idx, (device_name, canonic_id) in enumerate(canonic_ids, start=1):
-        print(f"{idx}. {device_name}: {canonic_id}")
 
-    selected_value = input("\nIf you want to see locations of a tracker, type the number of the tracker and press 'Enter'.\nIf you want to register a new ESP32- or Zephyr-based tracker, type 'r' and press 'Enter': ")
 
-    if selected_value == 'r':
-        print("Loading...")
-        register_esp32()
-    else:
-        selected_idx = int(selected_value) - 1
-        selected_device_name = canonic_ids[selected_idx][0]
-        selected_canonic_id = canonic_ids[selected_idx][1]
+    # print("Loading...")
+    # result_hex = request_device_list()
 
-        get_location_data_for_device(selected_canonic_id, selected_device_name)
+    # device_list = parse_device_list_protobuf(result_hex)
+
+    # refresh_custom_trackers(device_list)
+    # canonic_ids = get_canonic_ids(device_list)
+
+    # print("")
+    # print("-" * 50)
+    # print("Welcome to GoogleFindMyTools!")
+    # print("-" * 50)
+    # print("")
+    # print("The following trackers are available:")
+
+    # for idx, (device_name, canonic_id) in enumerate(canonic_ids, start=1):
+    #     print(f"{idx}. {device_name}: {canonic_id}")
+
+    # selected_value = input("\nIf you want to see locations of a tracker, type the number of the tracker and press 'Enter'.\nIf you want to register a new ESP32- or Zephyr-based tracker, type 'r' and press 'Enter': ")
+
+    # if selected_value == 'r':
+    #     print("Loading...")
+    #     register_esp32()
+    # else:
+    #     selected_idx = int(selected_value) - 1
+    #     selected_device_name = canonic_ids[selected_idx][0]
+    #     selected_canonic_id = canonic_ids[selected_idx][1]
+
+    #     get_location_data_for_device(selected_canonic_id, selected_device_name)
 
 
 if __name__ == '__main__':
